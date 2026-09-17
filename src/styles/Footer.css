@@ -31,7 +31,8 @@
 
     font-family: "Cormorant Garamond", serif;
 
-    font-size: 28rem;
+    /* responsive watermark size to avoid overflow on small screens */
+    font-size: clamp(6rem, 18vw, 28rem);
 
     font-weight: 700;
 

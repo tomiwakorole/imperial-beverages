@@ -1,4 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600&display=swap');
+/* Make box-sizing global to avoid width+padding overflow issues */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Ensure media elements don't exceed their container */
+img, picture, video, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 body{
     font-family:'Open Sans',sans-serif;
 }

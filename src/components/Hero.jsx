@@ -1,11 +1,35 @@
 import "../styles/Hero.css";
 import heroVideo from "../assets/videos/hero-video.mp4";
+import { useRef, useEffect } from "react";
 
 function Hero() {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    // Ensure muted before attempting autoplay (browser policies)
+    v.muted = true;
+    const playPromise = v.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(() => {
+        // Autoplay was prevented; ignore silently (fallbacks can be added)
+      });
+    }
+  }, []);
+
   return (
     <section className="hero">
 
-      <video className="hero-video" autoPlay muted loop playsInline>
+      <video
+        ref={videoRef}
+        className="hero-video"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+      >
         <source src={heroVideo} type="video/mp4" />
       </video>
 
