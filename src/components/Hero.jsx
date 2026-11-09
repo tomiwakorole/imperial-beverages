@@ -17,13 +17,23 @@ function Hero() {
 
     const attemptAutoplay = async () => {
       try {
+        v.currentTime = 0;
         await v.play();
       } catch (error) {
-        // Mobile browsers can block autoplay until interaction; keep it silent.
+        // Mobile browsers may still block autoplay until user interaction.
       }
     };
 
-    attemptAutoplay();
+    if (v.readyState >= 2) {
+      attemptAutoplay();
+      return;
+    }
+
+    v.addEventListener("loadeddata", attemptAutoplay, { once: true });
+
+    return () => {
+      v.removeEventListener("loadeddata", attemptAutoplay);
+    };
   }, []);
 
   return (

@@ -79,7 +79,7 @@ function Location() {
             rel="noopener noreferrer"
             className="directions-button"
           >
-            🚗 Start Your Trip
+            Start Your Trip
           </a>
 
         </div>
