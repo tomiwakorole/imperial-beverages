@@ -8,14 +8,22 @@ function Hero() {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    // Ensure muted before attempting autoplay (browser policies)
+
     v.muted = true;
-    const playPromise = v.play();
-    if (playPromise && typeof playPromise.catch === "function") {
-      playPromise.catch(() => {
-        // Autoplay was prevented; ignore silently (fallbacks can be added)
-      });
-    }
+    v.setAttribute("muted", "true");
+    v.setAttribute("playsinline", "true");
+    v.setAttribute("webkit-playsinline", "true");
+    v.setAttribute("controls", "false");
+
+    const attemptAutoplay = async () => {
+      try {
+        await v.play();
+      } catch (error) {
+        // Mobile browsers can block autoplay until interaction; keep it silent.
+      }
+    };
+
+    attemptAutoplay();
   }, []);
 
   return (
@@ -28,7 +36,9 @@ function Hero() {
         muted
         loop
         playsInline
+        controls={false}
         preload="auto"
+        webkit-playsinline="true"
       >
         <source src={heroVideo} type="video/mp4" />
       </video>
