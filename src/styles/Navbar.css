@@ -73,8 +73,27 @@
 
 @media(max-width:768px){
 
+.navbar{
+    flex-wrap:wrap;
+    gap:12px 18px;
+    padding:16px 20px;
+}
+
 .nav-links{
-    display:none;
+    display:flex;
+    flex:1 1 100%;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px 18px;
+    margin:0;
+    padding:0;
+    list-style:none;
+    order:3;
+}
+
+.nav-links a{
+    font-size:13px;
 }
 
 .contact-btn{
