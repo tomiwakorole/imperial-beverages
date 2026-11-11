@@ -105,3 +105,24 @@
 }
 
 }
+
+@media(max-width:480px){
+
+.navbar{
+    gap:10px 12px;
+    padding:12px 14px;
+}
+
+.nav-links{
+    gap:8px 12px;
+}
+
+.nav-links a{
+    font-size:12px;
+}
+
+.logo img{
+    width:80px;
+}
+
+}

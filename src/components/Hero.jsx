@@ -9,19 +9,25 @@ function Hero() {
     const v = videoRef.current;
     if (!v) return;
 
-    v.muted = true;
-    v.setAttribute("muted", "true");
-    v.setAttribute("playsinline", "true");
-    v.setAttribute("webkit-playsinline", "true");
+    const setupVideo = () => {
+      v.muted = true;
+      v.setAttribute("muted", "true");
+      v.setAttribute("playsinline", "true");
+      v.setAttribute("webkit-playsinline", "true");
+      v.setAttribute("autoplay", "true");
+    };
 
     const attemptAutoplay = async () => {
+      setupVideo();
       try {
         v.currentTime = 0;
         await v.play();
       } catch (error) {
-        // Mobile browsers may still block autoplay until user interaction.
+        // Mobile browsers block autoplay until a user interaction occurs.
       }
     };
+
+    setupVideo();
 
     if (v.readyState >= 2) {
       attemptAutoplay();
@@ -35,8 +41,20 @@ function Hero() {
     };
   }, []);
 
+  const handleHeroTap = async () => {
+    const v = videoRef.current;
+    if (!v) return;
+
+    try {
+      v.muted = true;
+      await v.play();
+    } catch (error) {
+      // Ignore autoplay errors after user interaction.
+    }
+  };
+
   return (
-    <section className="hero">
+    <section className="hero" onClick={handleHeroTap} onTouchStart={handleHeroTap}>
 
       <video
         ref={videoRef}
