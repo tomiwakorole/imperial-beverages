@@ -13,7 +13,6 @@ function Hero() {
     v.setAttribute("muted", "true");
     v.setAttribute("playsinline", "true");
     v.setAttribute("webkit-playsinline", "true");
-    v.setAttribute("controls", "false");
 
     const attemptAutoplay = async () => {
       try {
@@ -29,10 +28,10 @@ function Hero() {
       return;
     }
 
-    v.addEventListener("loadeddata", attemptAutoplay, { once: true });
+    v.addEventListener("canplay", attemptAutoplay, { once: true });
 
     return () => {
-      v.removeEventListener("loadeddata", attemptAutoplay);
+      v.removeEventListener("canplay", attemptAutoplay);
     };
   }, []);
 
@@ -48,6 +47,7 @@ function Hero() {
         playsInline
         controls={false}
         preload="auto"
+        disablePictureInPicture
         webkit-playsinline="true"
       >
         <source src={heroVideo} type="video/mp4" />
